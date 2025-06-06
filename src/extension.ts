@@ -1,10 +1,8 @@
 'use strict'
 import * as vscode from 'vscode'
-import * as telemetry from './telemetry'
 import { Formatter } from './formatter'
 
 export function activate(context: vscode.ExtensionContext) {
-  telemetry.activate(context)
   const formatter = new Formatter()
   let alignAfterEnter = vscode.workspace
     .getConfiguration('betterAlign')
@@ -14,7 +12,6 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerTextEditorCommand(
       'vscode-better-align.align',
       (editor) => {
-        telemetry.reporter.sendTelemetryEvent('align')
         formatter.process(editor)
       }
     ),
